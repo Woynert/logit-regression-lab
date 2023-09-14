@@ -1,12 +1,12 @@
 # Logit Regression Lab
 
-### Setup
+## Setup
 
-#### Required software
+### Required software
 
 - Python v3.9+
 
-#### Steps
+### Steps
 
 1. Clone the repository.
 

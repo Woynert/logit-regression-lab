@@ -24,7 +24,8 @@ python3 -m venv lab-env
 3. Enter python environment.
 
 ```sh
-source lab-env/bin/activate
+source lab-env/bin/activate # linux
+source lab-env/Scripts/activate # windows
 ```
 
 4. Install the pip packages. The following command will install `numpy, pandas, scikit-learn, plotly, and jupyterlab`.

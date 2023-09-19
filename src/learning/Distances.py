@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from typing import List
+from typing import List, Dict
 
 
 class PointDistance:
@@ -57,3 +57,44 @@ def sort_distances (distances: List[PointDistance]) -> List[PointDistance]:
     sorting_function = lambda obj: obj.distance
     distances.sort(key = sorting_function)
     return distances
+
+
+def group_point_distances_by_tags(
+    distances: List[PointDistance],
+    tags: List[str]
+  ) -> Dict[str, List[PointDistance]]:
+
+  dist_groups: Dict[str, List[PointDistance]] = {}
+
+  for tag in tags:
+    pdList: List[PointDistance] = []
+
+    for point in distances:
+        if point.tag == tag:
+            pdList.append(point)
+
+    # save in dictionary
+
+    dist_groups[tag] = pdList
+
+  return dist_groups
+
+
+def print_contestants_side_by_side (
+        dist_groups: Dict[str, List[PointDistance]],
+        tags: List[str],
+        limit: int = 20
+    ):
+
+    line = "t:"
+    for tag in tags:
+        line = f"{line} {tag:.3f} "
+    print (line)
+
+    for i in range (min(limit, len(dist_groups[tags[0]]))):
+        line = str(i) + " "
+
+        for tag in tags:
+            line = f"{line} {dist_groups[tag][i].distance:.3f} "
+
+        print(line)

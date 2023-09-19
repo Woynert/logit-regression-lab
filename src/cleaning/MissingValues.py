@@ -1,5 +1,4 @@
-from typing import List, Tuple
-import numpy as np
+from typing import List
 import pandas as pd
 
 def get_missing_values_indexes (data: pd.DataFrame) -> List[int]:

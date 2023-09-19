@@ -1,5 +1,6 @@
 import pandas as pd
-from typing import List, Dict
+import numpy as np
+from typing import List, Dict, Tuple
 
 def separate_data_by_tags (
         data: pd.DataFrame,
@@ -49,3 +50,22 @@ def balance_data_by_dropping_rows (
     for tag in tags:
         size_diff = len(data_groups[tag].index) - min
         data_groups[tag] = data_groups[tag].iloc[size_diff:]
+
+def get_training_and_testing_groups (
+        percentage_train: float,
+        tags: List[str],
+        data_groups: Dict[str, pd.DataFrame]
+    ) -> Tuple[pd.DataFrame, pd.DataFrame]:
+
+    data_train = pd.DataFrame()
+    data_test  = pd.DataFrame()
+
+    data_train_size = len(data_groups[tags[0]].index) * percentage_train
+
+    for tag in tags:
+        sub_train, sub_test = np.split (data_groups[tag], [int(data_train_size)])
+
+        data_train = pd.concat([data_train, sub_train])
+        data_test = pd.concat([data_test, sub_test])
+
+    return data_train, data_test

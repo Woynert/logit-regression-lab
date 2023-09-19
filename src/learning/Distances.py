@@ -50,3 +50,10 @@ def point_distances_against_others (
         distances.append(PointDistance(i, np.sqrt(acum_cubes), tag))
 
     return distances
+
+
+def sort_distances (distances: List[PointDistance]) -> List[PointDistance]:
+
+    sorting_function = lambda obj: obj.distance
+    distances.sort(key = sorting_function)
+    return distances

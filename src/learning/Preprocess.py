@@ -54,6 +54,25 @@ def balance_data_by_dropping_rows (
         data_groups[tag] = data_groups[tag].iloc[size_diff:]
 
 
+def drop_rows_less_50(
+        data: pd.DataFrame,
+        tags: List[str],
+        data_groups: Dict[str, pd.DataFrame]
+    ) -> pd.DataFrame:
+    
+    classes = []
+    c = 0
+    
+    for tag in tags:
+        c = c + 1
+        if len(data_groups[tag].index) < 50:
+            classes.append(c)
+            data_groups.pop(tag)
+            
+    for c in classes:
+        tags.remove(c)
+
+
 def get_training_and_testing_groups (
         percentage_train: float,
         tags: List[str],

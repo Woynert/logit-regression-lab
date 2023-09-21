@@ -56,6 +56,8 @@ def calculate_confusion_matrix(
     
         # get point
         point = pd.DataFrame([data_test.iloc[i]])
+        point = pd.DataFrame([data_test.iloc[i]])
+        point = pd.DataFrame([data_test.iloc[i]])
         #print(point)
         
         # predict using model
@@ -70,21 +72,19 @@ def calculate_confusion_matrix(
         # Etiqueta real
         actual_tag = point.iloc[0][tag_column]
         
-        #print(predicted_tag, ":", actual_tag)
-        # resultado de interes
         if predicted_tag in tag_objective:
         
             # clasificacion correcta
             if predicted_tag == actual_tag:
-                confusion_matrix['TP'] += 1
+                confusion_matrix[TP'] += 1
             else:
-                confusion_matrix['FP'] += 1
+                confusion_matrix[FP'] += 1
         
         # no nos dio el valor de interes
         else:
             # clasificacion correcta
             if predicted_tag == actual_tag:
-                confusion_matrix['TN'] += 1
+                confusion_matrix['TN] += 1
             else:
                 confusion_matrix['FN'] += 1
     

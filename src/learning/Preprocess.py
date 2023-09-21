@@ -91,9 +91,3 @@ def get_training_and_testing_groups (
         data_test = pd.concat([data_test, sub_test])
 
     return data_train, data_test
-
-
-
-
-
-

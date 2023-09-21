@@ -91,17 +91,16 @@ def calculate_confusion_matrix(
     return confusion_matrix 
 
 
-def get_roc_data_from_model (
+def get_multiple_confusions_per_model (
         k_list: List[int],
         data_train: pd.DataFrame,
         data_test: pd.DataFrame,
         tags: List[str],
         tag_column: str,
         tag_objective: List[str]
-    ) -> Tuple[List[int], List[int]]:
+    ) -> List[Dict[str, int]]:
 
-    listTPR = []
-    listFPR = []
+    mlist = []
     
     for k in k_list:
 
@@ -114,7 +113,36 @@ def get_roc_data_from_model (
             tag_objective
         )
 
+        mlist.append(matrix)
+
+    return mlist
+
+
+def get_roc_data_from_model (
+        matrixs: List[Dict[str, int]]
+    ) -> Tuple[List[int], List[int]]:
+
+    listTPR = []
+    listFPR = []
+
+    for matrix in matrixs:
         listTPR.append(matrix['TP'] / (matrix['TP'] + matrix['FN']))
         listFPR.append(matrix['FP'] / (matrix['FP'] + matrix['TN']))
 
     return listTPR, listFPR
+
+
+# sensibilidad, especificidad y precisión
+
+def find_performance (
+        matrix: Dict[str, int],
+        i: int = -1
+    ):
+
+    sensi = matrix['TP'] / (matrix['TP'] + matrix['FN'])
+    espec = matrix['TN'] / (matrix['FP'] + matrix['TN'])
+    preci = matrix['TP'] / (matrix['TP'] + matrix['FP'])
+
+    print(f"{i}. sen: {sensi:.5f}, esp: {espec:.5f}, pre: {preci:.5f}")
+
+    
